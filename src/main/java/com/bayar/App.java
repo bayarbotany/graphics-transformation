@@ -101,53 +101,53 @@ public class App
     //add sliders to change the value of x and y
     //add inputs of x and y for translate, scale, rotate, and shear
 
-    JFrame frame = new JFrame();
+    // JFrame frame = new JFrame();
  
-        JButton button = new JButton("Draw");
-        JTextField x_value_input = new JTextField("x");
-        JTextField y_value_input = new JTextField("y");
-        JSlider x_value_slider = new JSlider();
-        JSlider y_value_slider = new JSlider();
-        JRadioButton translate = new JRadioButton("Translate");
-        JRadioButton scale = new JRadioButton("Scale");
-        JRadioButton rotate = new JRadioButton("Rotate");
-        JRadioButton shear = new JRadioButton("Shear");
-        JRadioButton reflect = new JRadioButton("Reflect");
-        ButtonGroup group = new ButtonGroup();
+    //     JButton button = new JButton("Draw");
+    //     JTextField x_value_input = new JTextField("x");
+    //     JTextField y_value_input = new JTextField("y");
+    //     JSlider x_value_slider = new JSlider();
+    //     JSlider y_value_slider = new JSlider();
+    //     JRadioButton translate = new JRadioButton("Translate");
+    //     JRadioButton scale = new JRadioButton("Scale");
+    //     JRadioButton rotate = new JRadioButton("Rotate");
+    //     JRadioButton shear = new JRadioButton("Shear");
+    //     JRadioButton reflect = new JRadioButton("Reflect");
+    //     ButtonGroup group = new ButtonGroup();
         
-                group.add(translate);
-                group.add(scale);
-                group.add(rotate);
-                group.add(shear);
-                group.add(reflect);
+    //             group.add(translate);
+    //             group.add(scale);
+    //             group.add(rotate);
+    //             group.add(shear);
+    //             group.add(reflect);
      
         
-        JPanel panel = new JPanel();
+        // JPanel panel = new JPanel();
 
-        //grid layout
-        panel.setLayout(new GridLayout(3, 3));
+        // //grid layout
+        // panel.setLayout(new GridLayout(3, 3));
 
 
 
-        panel.add(button);
-        panel.add(x_value_input);
-        panel.add(y_value_input);
-        panel.add(x_value_slider);
-        panel.add(y_value_slider);
-        panel.add(translate);
-        panel.add(scale);
-        panel.add(rotate);
-        panel.add(shear);
-        panel.add(reflect);
-        frame.add(panel);
-        frame.setLayout(new FlowLayout());
+        // panel.add(button);
+        // panel.add(x_value_input);
+        // panel.add(y_value_input);
+        // panel.add(x_value_slider);
+        // panel.add(y_value_slider);
+        // panel.add(translate);
+        // panel.add(scale);
+        // panel.add(rotate);
+        // panel.add(shear);
+        // panel.add(reflect);
+        // frame.add(panel);
+        // frame.setLayout(new FlowLayout());
       
 
     
 
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(2000, 500);
-    frame.setVisible(true);
+    // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    // frame.setSize(2000, 500);
+    // frame.setVisible(true);
     // frame.add(shape);
         //points of lines (x,y) to draw a house
 
