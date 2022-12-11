@@ -17,19 +17,26 @@ public class App
         Scanner scanner = new Scanner(System.in);
        
 
-        System.out.println("Welcome, please create a shape");
-        System.out.println("Enter the number of points");
-        int n = scanner.nextInt();
-        scanner.nextLine();
-        Point2D[] points = new Point2D[n];
-        for (int i = 0; i < n; i++) {
-            System.out.println("Enter the x and y coordinate of point " + (i + 1));
-            double x = scanner.nextDouble();
-            scanner.nextLine();
-            double y = scanner.nextDouble();
-            scanner.nextLine();
-            points[i] = new Point2D.Double(x, y);
-        }
+        // System.out.println("Welcome, please create a shape");
+        // System.out.println("Enter the number of points");
+        // int n = scanner.nextInt();
+        // scanner.nextLine();
+        // double[][] points = new double[n][2];
+        // for (int i = 0; i < n; i++) {
+        //     System.out.println("Enter the x and y coordinate of point " + (i + 1));
+        //     points[i][0] = scanner.nextDouble();
+        //     scanner.nextLine();
+        //     points[i][1] = scanner.nextDouble();
+        //     scanner.nextLine();
+        // }
+        double[][] points = {
+            {100, 100},     // x----------
+            {200, 100},     //-----------x
+            {200, 200},      //-----------x
+            {100, 200},     //x----------
+            {100, 100}      //x----------
+        };
+
         CanvaDrawer shape = new CanvaDrawer(points);
         shape.draw();
      int option = -1;
@@ -39,7 +46,6 @@ public class App
             System.out.println("2. Scale");
             System.out.println("3. Rotate");
             System.out.println("4. Shear");
-            System.out.println("5. Reflect");
              option = scanner.nextInt();
         scanner.nextLine();
 
@@ -61,6 +67,8 @@ public class App
                 scanner.nextLine();
                 shape.scale(x, y);
                 shape.draw();
+                shape.getGraphics().setColor(Color.red);
+            
                 break;
             case 3:
                 System.out.println("Enter the angle to rotate");
@@ -76,15 +84,6 @@ public class App
                 y = scanner.nextDouble();
                 scanner.nextLine();
                 shape.shear(x, y);
-                shape.draw();
-                break;
-            case 5:
-                System.out.println("Enter the x and y coordinate to reflect");
-                x = scanner.nextDouble();
-                scanner.nextLine();
-                y = scanner.nextDouble();
-                scanner.nextLine();
-                shape.reflect(x, y);
                 shape.draw();
                 break;
             default:
