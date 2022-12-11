@@ -64,14 +64,18 @@ public class CanvaDrawer extends JComponent {
 
     //method to rotate the points
 
+    // Rotate the shape by angle.
     public void rotate(double angle) {
         for (int i = 0; i < points.length; i++) {
             double x = points[i][0];
             double y = points[i][1];
+            // Rotate the point by angle.
             points[i][0] = x * Math.cos(angle) - y * Math.sin(angle);
             points[i][1] = x * Math.sin(angle) + y * Math.cos(angle);
         }
+        // Set the color to yellow.
         this.setForeground(Color.yellow);
+        
     }
 
     //method to shear the points
