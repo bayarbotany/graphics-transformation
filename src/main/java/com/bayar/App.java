@@ -127,7 +127,14 @@ public class App
             {280,120},
             {290,110},
             {300,100},
+            
         };
+
+        //shift the shape to the center of the screen
+        for (int i = 0; i < points.length; i++) {
+            points[i][0] += 300;
+            points[i][1] += 300;
+        }
 
         CanvaDrawer shape = new CanvaDrawer(points);
         shape.draw();
@@ -167,7 +174,7 @@ public class App
     //             System.out.println("Enter the angle to rotate");
     //             double theta = scanner.nextDouble();
     //             scanner.nextLine();
-    //             shape.rotate(theta);
+    //             shape.rotateAroundPoint(theta);
     //             shape.draw();
     //             break;
     //         case 4:
