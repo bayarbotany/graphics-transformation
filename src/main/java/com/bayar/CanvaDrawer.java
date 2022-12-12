@@ -19,6 +19,9 @@ public class CanvaDrawer extends JComponent {
     private JLabel angleSliderLabel = new JLabel("Angle");
     private JSlider xSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
     private JSlider ySlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
+    private JTextField angleTextField = new JTextField("0");
+    private JTextField xTextField = new JTextField("0");
+    private JTextField yTextField = new JTextField("0");
     private JSlider angleSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
     private JButton translate = new JButton("Translate");
     private JButton scale = new JButton("Scale");
@@ -73,8 +76,8 @@ public class CanvaDrawer extends JComponent {
             points[i][0] = x * Math.cos(angle) - y * Math.sin(angle);
             points[i][1] = x * Math.sin(angle) + y * Math.cos(angle);
         }
-        // Set the color to yellow.
-        this.setForeground(Color.yellow);
+        // Set the color to Dark Gray.
+        this.setForeground(Color.DARK_GRAY);
         
     }
 
@@ -116,22 +119,71 @@ public class CanvaDrawer extends JComponent {
         GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         GUI.add(panel);
         //add all sliders in a vertical box
+        Box InputBox = Box.createVerticalBox();
         Box verticalBox = Box.createVerticalBox();
+        Box ButtonsBox = Box.createVerticalBox();
+        //increase the size of the text field
+        xTextField.setPreferredSize(new Dimension(50, 20));
+        yTextField.setPreferredSize(new Dimension(50, 20));
+        angleTextField.setPreferredSize(new Dimension(50, 20));
+        InputBox.add(xTextField);
+        InputBox.add(yTextField);
+        InputBox.add(angleTextField);
+
         verticalBox.add(xSliderLabel);
         verticalBox.add(xSlider);
         verticalBox.add(ySliderLabel);
         verticalBox.add(ySlider);
+
         verticalBox.add(angleSliderLabel);
         verticalBox.add(angleSlider);
-        
+        panel.add(InputBox);
         panel.add(verticalBox);
-        panel.add(translate);
-        panel.add(scale);
-        panel.add(rotate);
-        panel.add(shear);
-        panel.add(exit);
+        panel.add(ButtonsBox);
+        ButtonsBox.add(translate);
+        ButtonsBox.add(scale);
+        ButtonsBox.add(rotate);
+        ButtonsBox.add(shear);
+        ButtonsBox.add(exit);
         GUI.setVisible(true);
 
+        angleTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //set slider value to the text field value
+                angleSlider.setValue(Integer.parseInt(angleTextField.getText()));
+            }
+        });
+        xTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //set slider value to the text field value
+                xSlider.setValue(Integer.parseInt(xTextField.getText()));
+            }
+        });
+        yTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //set slider value to the text field value
+                ySlider.setValue(Integer.parseInt(yTextField.getText()));
+            }
+        });
+        xSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                //set text field value to the slider value
+                xTextField.setText(Integer.toString(xSlider.getValue()));
+            }
+        });
+        ySlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                //set text field value to the slider value
+                yTextField.setText(Integer.toString(ySlider.getValue()));
+            }
+        });
+        angleSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                //set text field value to the slider value
+                double angle = angleSlider.getValue() / 100.0;
+                angleTextField.setText(angle + "");
+            }
+        });
         translate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 //translate the points
@@ -141,6 +193,7 @@ public class CanvaDrawer extends JComponent {
 
             }
         });
+
         scale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 //scale the points
