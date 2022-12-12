@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.awt.geom.Point2D.Double;
 import javax.swing.*;
+import java.util.*;
+import java.util.Timer;
 
 public class CanvaDrawer extends JComponent {
 
@@ -25,6 +27,7 @@ public class CanvaDrawer extends JComponent {
     private JSlider angleSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
     private JButton translate = new JButton("Translate");
     private JButton scale = new JButton("Scale");
+    private JLabel infoLabel = new JLabel("Scaling and shearing are dividing the x and y value  by 10 so that it can be in decimal");
 
     private JButton shear = new JButton("Shear");
     private JButton exit = new JButton("Exit");
@@ -63,12 +66,17 @@ public class CanvaDrawer extends JComponent {
             points[i][1] *= y;
         }
         this.setForeground(Color.blue);
+        this.repaint();
     }
     
 
 
        public void rotateAroundPoint(double angle) {
         //rotate around the middle of the shape
+
+        //angle variable to degree
+        angle = Math.toRadians(angle);
+        
         double x = 0;
         double y = 0;
         for (int i = 0; i < points.length; i++) {
@@ -94,17 +102,21 @@ public class CanvaDrawer extends JComponent {
     //method to shear the points
 
     public void shear(double x, double y) {
+        //shear the points around the middle of the shape
+        double x1 = 0;
+        double y1 = 0;
         for (int i = 0; i < points.length; i++) {
-            double x1 = points[i][0];
-            double y1 = points[i][1];
-            if (x > 0 || x < 0) {
-                points[i][0] = x1 + x * y1;
-            }
-            if (y > 0 || y < 0) {
-
-            points[i][1] = y1 + y * x1;
-            }
+            x1 += points[i][0];
+            y1 += points[i][1];
         }
+        x1 /= points.length;
+        y1 /= points.length;
+        for (int i = 0; i < points.length; i++) {
+            points[i][0] += x * (points[i][1] - y1);
+            points[i][1] += y * (points[i][0] - x1);
+        }
+        
+        
         this.setForeground(Color.green);
     }
 
@@ -125,7 +137,7 @@ public class CanvaDrawer extends JComponent {
     //method to show gui and buttons to transform the points
 
     public void showGUI() {
-        GUI.setSize(1000, 1000);
+        GUI.setSize(1000, 300);
         GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         GUI.add(panel);
         //add all sliders in a vertical box
@@ -147,6 +159,8 @@ public class CanvaDrawer extends JComponent {
 
         verticalBox.add(angleSliderLabel);
         verticalBox.add(angleSlider);
+        verticalBox.add(infoLabel);
+
         panel.add(InputBox);
         panel.add(verticalBox);
         panel.add(ButtonsBox);
@@ -192,7 +206,8 @@ public class CanvaDrawer extends JComponent {
         angleSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 //set text field value to the slider value
-                double angle = angleSlider.getValue() / 100.0;
+                // double angle = angleSlider.getValue() / 100.0;
+                double angle = angleSlider.getValue() ;
                 angleTextField.setText(angle + "");
             }
         });
@@ -233,7 +248,8 @@ public class CanvaDrawer extends JComponent {
                 //rotate the points
                 // System.out.println(angleSlider.getValue());
                 //to convert from -100 to 100 to -1.0 to 1.0
-                double angle = angleSlider.getValue() / 100.0;
+                // double angle = angleSlider.getValue() / 100.0;
+                double angle = angleSlider.getValue() ;
                 rotateAroundPoint(angle);
             }
         });
@@ -241,7 +257,7 @@ public class CanvaDrawer extends JComponent {
 
         shear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //convert from -100 to 100 to -1.0 to 1.0
+                // convert from -100 to 100 to -1.0 to 1.0
                 double x = xSlider.getValue() / 10.0;
                 double y = ySlider.getValue() / 10.0;
                 
@@ -267,6 +283,7 @@ public class CanvaDrawer extends JComponent {
 
     
 
+       
 
     
    
