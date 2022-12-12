@@ -25,9 +25,10 @@ public class CanvaDrawer extends JComponent {
     private JSlider angleSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
     private JButton translate = new JButton("Translate");
     private JButton scale = new JButton("Scale");
-    private JButton rotate = new JButton("Rotate");
+
     private JButton shear = new JButton("Shear");
     private JButton exit = new JButton("Exit");
+    private JButton rotate2 = new JButton("Rotate around point");
     
     
 
@@ -65,19 +66,28 @@ public class CanvaDrawer extends JComponent {
     }
     
 
-    //method to rotate the points
 
-    // Rotate the shape by angle.
-    public void rotate(double angle) {
+       public void rotateAroundPoint(double angle) {
+        //rotate around the middle of the shape
+        double x = 0;
+        double y = 0;
         for (int i = 0; i < points.length; i++) {
-            double x = points[i][0];
-            double y = points[i][1];
+            x += points[i][0];
+            y += points[i][1];
+        }
+        x /= points.length;
+        y /= points.length;
+        for (int i = 0; i < points.length; i++) {
+            double x1 = points[i][0];
+            double y1 = points[i][1];
             // Rotate the point by angle.
-            points[i][0] = x * Math.cos(angle) - y * Math.sin(angle);
-            points[i][1] = x * Math.sin(angle) + y * Math.cos(angle);
+            points[i][0] = x + (x1 - x) * Math.cos(angle) - (y1 - y) * Math.sin(angle);
+            points[i][1] = y + (x1 - x) * Math.sin(angle) + (y1 - y) * Math.cos(angle);
         }
         // Set the color to Dark Gray.
-        this.setForeground(Color.DARK_GRAY);
+        this.setForeground(Color.MAGENTA);
+        //redraw the shape
+        this.repaint();
         
     }
 
@@ -101,12 +111,12 @@ public class CanvaDrawer extends JComponent {
     //method to draw the points
 
     public void draw() {
-        frame.setSize(1000, 1000);
+        frame.setSize(1000,1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(this);
+        frame.add(this, BorderLayout.CENTER);
         frame.setVisible(true);
-        System.out.println(this.getBackground());
-        // this.setForeground(Color.red);
+        // panel.add(this);
+        // panel.setPreferredSize(getPreferredSize());
 
         
         
@@ -142,9 +152,11 @@ public class CanvaDrawer extends JComponent {
         panel.add(ButtonsBox);
         ButtonsBox.add(translate);
         ButtonsBox.add(scale);
-        ButtonsBox.add(rotate);
+
+        ButtonsBox.add(rotate2);
         ButtonsBox.add(shear);
         ButtonsBox.add(exit);
+        
         GUI.setVisible(true);
 
         angleTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -214,19 +226,18 @@ public class CanvaDrawer extends JComponent {
                 repaint();
             }
         });
-        rotate.addActionListener(new java.awt.event.ActionListener() {
+      
+  
+        rotate2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 //rotate the points
                 // System.out.println(angleSlider.getValue());
                 //to convert from -100 to 100 to -1.0 to 1.0
                 double angle = angleSlider.getValue() / 100.0;
-
-
-                rotate(angle);
-                //repaint the points
-                repaint();
+                rotateAroundPoint(angle);
             }
         });
+
 
         shear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
