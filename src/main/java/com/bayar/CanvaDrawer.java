@@ -1,10 +1,17 @@
 package com.bayar;
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.geom.Point2D.Double;
-import javax.swing.*;
-import java.util.*;
-import java.util.Timer;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.JTextField;
 
 public class CanvaDrawer extends JComponent {
 
@@ -62,8 +69,12 @@ public class CanvaDrawer extends JComponent {
     //method to scale the points
     public void scale(double x, double y) {
         for (int i = 0; i < points.length; i++) {
-            points[i][0] *= x;
-            points[i][1] *= y;
+            double x1 = points[i][0];
+            double y1 = points[i][1];
+            // Scale the point by x and y.
+            points[i][0] = x1 * x   ;
+            points[i][1] = y1 * y  ;
+
         }
         this.setForeground(Color.blue);
         this.repaint();
